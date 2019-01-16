@@ -1,0 +1,57 @@
+/*
+
+        client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(
+                new Continuation<StitchUser, Task<RemoteInsertOneResult>>() {
+                    @Override
+                    public Task<RemoteInsertOneResult> then(@NonNull Task<StitchUser> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            Log.e("STITCH", "Login failed!");
+                            throw task.getException();
+                        }
+
+                        final Document updateDoc = new Document(
+                                "owner_id",
+                                task.getResult().getId()
+                        );
+                        updateDoc.append("userFirstName", u.fname);
+                        updateDoc.append("userLastName", u.lname);
+                        updateDoc.append("userHeightInches", u.heightFeet*12 + u.heightInches);
+                        updateDoc.append("userWeight", u.weight);
+                        updateDoc.append("userAge", u.age);
+                        updateDoc.append("userSmoker", u.smoker);
+                        updateDoc.append("info", new Document("x", 203).append("y", 102));
+                        /*
+                        return coll.updateOne(
+                                null, updateDoc, new RemoteUpdateOptions().upsert(true)
+                        );
+
+                        return coll.insertOne(updateDoc);
+                    }
+                }
+        ).continueWithTask(new Continuation<RemoteInsertOneResult, Task<List<Document>>>() {
+            @Override
+            public Task<List<Document>> then(@NonNull Task<RemoteInsertOneResult> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    Log.e("STITCH", "Update failed!");
+                    throw task.getException();
+                }
+                List<Document> docs = new ArrayList<>();
+                return coll
+                        .find(new Document("owner_id", client.getAuth().getUser().getId()))
+                        .limit(100)
+                        .into(docs);
+            }
+        }).addOnCompleteListener(new OnCompleteListener<List<Document>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<Document>> task) {
+                if (task.isSuccessful()) {
+                    Log.d("STITCH", "Found docs: " + task.getResult().toString());
+                    return;
+                }
+                Log.e("STITCH", "Error: " + task.getException().toString());
+                task.getException().printStackTrace();
+            }
+        });
+
+
+*/
